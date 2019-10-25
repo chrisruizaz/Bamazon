@@ -1,4 +1,5 @@
 var mysql = require("mysql");
+var inquirer = require("inquirer");
 let connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
@@ -11,7 +12,6 @@ connection.connect(function(err) {
   console.log("connected as id " + connection.threadId);
 
   seeProducts();
-  //   start();
 });
 function seeProducts() {
   connection.query("SELECT * FROM products", function(err, res) {
@@ -30,25 +30,40 @@ function seeProducts() {
       );
     }
     console.log("-----------------------------------");
+    start();
   });
 }
 
-// function start() {
-//   inquirer
-//     .prompt({
-//       name: "postOrBid",
-//       type: "list",
-//       message: "Would you like to [POST] an auction or [BID] on an auction?",
-//       choices: ["POST", "BID", "EXIT"]
-//     })
-//     .then(function(answer) {
-//       // based on their answer, either call the bid or the post functions
-//       if (answer.postOrBid === "POST") {
-//         postAuction();
-//       } else if (answer.postOrBid === "BID") {
-//         bidAuction();
-//       } else {
-//         connection.end();
-//       }
-//     });
-// }
+function start() {
+  inquirer
+    .prompt([
+      {
+        name: "ID",
+        type: "number",
+        message: "What would you like to [BUY] today?"
+      },
+      {
+        name: "quantity",
+        type: "number",
+        message: "How many would you like to buy?"
+      }
+    ])
+    .then(function(answer) {
+      connection.query("SELECT * FROM products", function(errors, items) {
+        let position = answer.ID - 1;
+        if (items[position].stock_quantity >= answer.quantity) {
+          connection.query(
+            "UPDATE products SET stock_quantity = stock_quantity - ? WHERE id = ?",
+            [answer.quantity, answer.ID],
+            function(error, res) {
+              if (error) throw error;
+              console.log(res);
+            }
+          );
+        } else {
+          console.log("Not enough in stock!");
+        }
+      });
+      // based on their answer, either call the bid or the post functions
+    });
+}
