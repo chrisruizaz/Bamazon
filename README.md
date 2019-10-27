@@ -9,7 +9,6 @@ This is Bamazon; its a lot like amazon except in node.
 When node is running the first thing that will come up will be a table that shows (from left to right) ID number, product name, department name, price and quantity.
 
 ![Bamazon screen](/images/Bamazon.png)
-Format: ![Alt Text](url)
 
 Following that will be a prompt asking what you would like to buy today. To make that selection type the ID number in the beginning of the row. Type your number and press enter.
 
