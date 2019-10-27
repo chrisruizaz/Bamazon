@@ -1,9 +1,5 @@
 # Bamazon
 
-See the published site [here](# Bamazon
-
-See the published site [here](# Bamazon
-
 See the published site [here](https://chrisruizaz.github.io/Bamazon/)
 
 ## About
