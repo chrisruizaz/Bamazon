@@ -40,7 +40,8 @@ function start() {
       {
         name: "ID",
         type: "number",
-        message: "What would you like to [BUY] today?"
+        message:
+          "What would you like to [BUY] today? (select by id number first row)"
       },
       {
         name: "quantity",
@@ -64,6 +65,5 @@ function start() {
           console.log("Not enough in stock!");
         }
       });
-      // based on their answer, either call the bid or the post functions
     });
 }
